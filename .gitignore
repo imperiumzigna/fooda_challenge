@@ -5,3 +5,5 @@
 coverage/*
 
 .vscode
+
+docs/report-rubycritic.html
