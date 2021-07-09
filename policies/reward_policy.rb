@@ -1,5 +1,3 @@
-require 'time'
-
 module RewardPolicy
   class << self
     def valid?(reward)
