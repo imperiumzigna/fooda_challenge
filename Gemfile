@@ -9,3 +9,4 @@ gem 'rspec'
 gem 'pry'
 
 gem 'simplecov', require: false, group: :test
+gem "rubycritic", require: false
