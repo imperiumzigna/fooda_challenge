@@ -23,10 +23,9 @@ require 'time'
 # Average points per order
 # (total_points) / number_of_orders = 11 points
 #
-
 module Reward
   class << self
-    def calculate(_amount, timestamp)
+    def calculate(amount, timestamp)
       time = Time.parse(timestamp).hour
 
       case time
