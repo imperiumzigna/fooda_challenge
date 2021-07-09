@@ -1,6 +1,6 @@
 require_relative '../policies/reward_policy'
 require 'time'
-
+require 'pry'
 # 12pm - 1pm	1 point per $3 spent                  | 12:00:00 --- 13:00:00
 # 11am - 12pm and 1pm - 2pm	1 point per $2 spent    | 11:00:00 --- 12:00:00 or 13:00:00 --- 14:00:00
 # 10am - 11am and 2pm - 3pm	1 point per $1 spent    | 10:00:00 --- 11:00:00 or 14:00:00 --- 15:00:00
@@ -28,16 +28,14 @@ module Reward
     def calculate(amount, timestamp)
       time = Time.parse(timestamp).hour
 
-      case time
-      when (12..13)
-        count_points(amount, 3, 1)
-      when (11..12), (13..14)
-        count_points(amount, 2, 1)
-      when (10..11), (14..15)
-        count_points(amount, 1, 1)
-      else
-        count_points(amount, 1, 0.25)
-      end
+      settings = get_settings(time)
+      count_points(amount, settings[:per_point], settings[:prize])
+    end
+
+    def get_settings(time)
+      settings = RewardPolicy::REWARD_RULES.find { |rule| between?(time, rule[:start], rule[:end]) }
+
+      settings || RewardPolicy::DEFAULT_REWARD_RULE
     end
 
     def count_points(amount, per_point, prize)
@@ -45,6 +43,10 @@ module Reward
 
       reward = ((amount / per_point) * prize.to_f).ceil
       RewardPolicy.valid?(reward) ? reward : 0
+    end
+
+    def between?(time, start_time, end_time)
+      time >= start_time && time <= end_time
     end
   end
 end
