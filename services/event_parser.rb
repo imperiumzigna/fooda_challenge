@@ -4,9 +4,10 @@ require_relative './report'
 require_relative './event'
 require_relative '../policies/reward_policy'
 require_relative '../policies/event_policy'
+require 'pry'
 
 class EventParser
-  attr_accessor :customers
+  attr_reader :customers
 
   def initialize(data)
     @customers = {}
@@ -20,7 +21,7 @@ class EventParser
 
     events.each_slice(1000) do |slice|
       slice.map do |event|
-        self.customers = Event.translate(event, customers)
+        customers(Event.translate(event, customers))
       rescue StandardError
         next
       end

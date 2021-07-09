@@ -1,5 +1,5 @@
-require 'pry'
 require_relative './customer'
+require 'pry'
 
 module Event
   class << self
@@ -22,7 +22,7 @@ module Event
     end
 
     def new_order(event, customers)
-      customer = Customer.find_customer(event)
+      customer = customers[event['customer']].find_customer(event, customers)
 
       return if customer.nil?
 
