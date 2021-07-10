@@ -5,7 +5,7 @@ module Report
     def render(customers = {})
       reports = customers.values.map(&:report)
 
-      puts reports.join("\n")
+      reports.join("\n")
     end
   end
 end

@@ -9,4 +9,4 @@ json = JSON.parse(file)
 
 parser = EventParser.new(json)
 
-parser.run
+puts parser.run
