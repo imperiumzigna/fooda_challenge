@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Customer
-  attr_accessor :name, :orders, :points, :avg_points
+  attr_reader :name, :orders, :points, :avg_points
 
   def initialize(name)
     @name = name
@@ -10,7 +10,7 @@ class Customer
     @avg_points = 0
   end
 
-  def get_report
+  def report
     if orders.zero?
       "#{name}: No orders."
     else
@@ -19,9 +19,9 @@ class Customer
   end
 
   def update(new_points)
-    self.orders += 1
-    self.points += new_points
-    self.avg_points = points / orders if orders.positive?
+    @orders += 1
+    @points = points + new_points
+    @avg_points = points / orders if orders.positive?
   end
 
   def find_customer(event, customers)

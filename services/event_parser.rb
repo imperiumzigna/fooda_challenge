@@ -6,9 +6,9 @@ require_relative './report'
 require_relative './event'
 require_relative '../policies/reward_policy'
 require_relative '../policies/event_policy'
-
+require 'pry'
 class EventParser
-  attr_reader :customers
+  attr_reader :customers, :data
 
   def initialize(data)
     @customers = {}
@@ -16,17 +16,12 @@ class EventParser
   end
 
   def run
-    events = @data&.dig('events')
+    events = data&.dig('events')
 
     error('No events to handle found') unless EventPolicy.valid?(events)
 
-    events.each_slice(1000) do |slice|
-      slice.map do |event|
-        customers(Event.translate(event, customers))
-      rescue StandardError
-        next
-      end
-    end
+    process_data(events)
+
     Report.render(customers)
   end
 
@@ -34,5 +29,21 @@ class EventParser
 
   def error(message)
     raise StandardError, message
+  end
+
+  def parse(events)
+    events.each do |event|
+      customers(Event.translate(event, customers))
+    rescue StandardError
+      next
+    end
+  end
+
+  def process_data(events)
+    return parse(events) if events.size <= 1000
+
+    events.each_slice(1000) do |slice|
+      parse(slice)
+    end
   end
 end

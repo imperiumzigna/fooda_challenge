@@ -19,7 +19,9 @@ module Event
     end
 
     def new_customer(event, customers)
-      customers[event['name']] = Customer.new(event['name'])
+      id = event['name']
+
+      customers[id] = Customer.new(id)
 
       customers
     end
@@ -27,7 +29,7 @@ module Event
     def new_order(event, customers)
       customer = customers[event['customer']].find_customer(event, customers)
 
-      return if customer.nil?
+      return unless customer
 
       reward = Reward.calculate(event['amount'], event['timestamp'])
       customer.update(reward) if RewardPolicy.valid?(reward)
