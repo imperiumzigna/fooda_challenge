@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative '../spec_helper'
 require_relative '../../services/event_parser'
 
@@ -6,5 +8,8 @@ describe EventParser do
     expect { described_class.new({}).run }.to raise_error(StandardError, 'No events to handle found')
     expect { described_class.new(nil).run }.to raise_error(StandardError, 'No events to handle found')
     expect { described_class.new([]).run }.to raise_error(StandardError, 'No events to handle found')
+  end
+
+  it 'parses events to generate a report' do
   end
 end

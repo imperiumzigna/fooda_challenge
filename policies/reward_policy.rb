@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module RewardPolicy
   DEFAULT_REWARD_RULE = {
     prize: 0.25, per_point: 1

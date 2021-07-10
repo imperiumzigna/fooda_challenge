@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative './customer'
 require 'pry'
 
@@ -6,12 +8,13 @@ module Event
     ACTIONS = {
       'new_customer' => :new_customer,
       'new_order' => :new_order
-    }
+    }.freeze
 
     def translate(event, customers)
       action = ACTIONS[event['action']]
 
-      error("Doesn't know how to handle #{event['action']}") if action.nil?
+      error("Doesn't know how to handle #{action}") unless action
+
       send(action, event, customers)
     end
 

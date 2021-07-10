@@ -1,6 +1,7 @@
+# frozen_string_literal: true
+
 require_relative '../policies/reward_policy'
 require 'time'
-require 'pry'
 # 12pm - 1pm	1 point per $3 spent                  | 12:00:00 --- 13:00:00
 # 11am - 12pm and 1pm - 2pm	1 point per $2 spent    | 11:00:00 --- 12:00:00 or 13:00:00 --- 14:00:00
 # 10am - 11am and 2pm - 3pm	1 point per $1 spent    | 10:00:00 --- 11:00:00 or 14:00:00 --- 15:00:00
