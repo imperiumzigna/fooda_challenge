@@ -3,11 +3,11 @@
 class Customer
   attr_reader :name, :orders, :points, :avg_points
 
-  def initialize(name)
+  def initialize(name, points: 0, orders: 0, avg_points: 0)
     @name = name
-    @orders = 0
-    @points = 0
-    @avg_points = 0
+    @orders = orders
+    @points = points
+    @avg_points = avg_points
   end
 
   def report

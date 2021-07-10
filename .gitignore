@@ -2,7 +2,7 @@
 
 .env
 
-coverage/*
+coverage
 
 .vscode
 

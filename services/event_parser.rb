@@ -6,7 +6,7 @@ require_relative './report'
 require_relative './event'
 require_relative '../policies/reward_policy'
 require_relative '../policies/event_policy'
-require 'pry'
+
 class EventParser
   attr_reader :customers, :data
 
