@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 require_relative './customer'
+require_relative './reward'
+require_relative '../policies/reward_policy'
 
 module Event
   class << self
@@ -12,7 +14,7 @@ module Event
     def translate(event, customers)
       action = ACTIONS[event['action']]
 
-      error("Doesn't know how to handle #{action}") unless action
+      error("Doesn't know how to handle action") unless action
 
       send(action, event, customers)
     end
@@ -41,6 +43,10 @@ module Event
       id = event['name'] || event['customer']
 
       customers[id] || Customer.new(id)
+    end
+
+    def error(message)
+      raise StandardError, message
     end
   end
 end
