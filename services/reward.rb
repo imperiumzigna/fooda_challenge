@@ -40,7 +40,7 @@ module Reward
     end
 
     def count_points(amount, per_point, prize)
-      return 0 if prize.to_f.zero? || per_point.zero? || amount.zero?
+      return 0 if prize.zero? || per_point.zero? || amount.zero?
 
       reward = ((amount / per_point) * prize.to_f).ceil
       RewardPolicy.valid?(reward) ? reward : 0

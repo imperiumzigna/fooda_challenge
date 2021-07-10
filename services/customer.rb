@@ -23,8 +23,4 @@ class Customer
     @points = points + new_points
     @avg_points = points / orders if orders.positive?
   end
-
-  def find_customer(event, customers)
-    customers[event['customer']] || nil
-  end
 end

@@ -27,7 +27,7 @@ module Event
     end
 
     def new_order(event, customers)
-      customer = customers[event['customer']].find_customer(event, customers)
+      customer = find_customer(event, customers)
 
       return unless customer
 
@@ -35,6 +35,10 @@ module Event
       customer.update(reward) if RewardPolicy.valid?(reward)
 
       customers
+    end
+
+    def find_customer(event, customers)
+      customers[event['customer']] || nil
     end
   end
 end
