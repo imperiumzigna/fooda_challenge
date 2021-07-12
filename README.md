@@ -15,6 +15,7 @@ To run this project you must have:
 
 ```
 ruby 3.0.1
+bundler 2.2.15
 ```
 
 ### Run parser
@@ -25,7 +26,7 @@ ruby 3.0.1
 bundle install
 ```
 
-2. Parse events on "[data/example.json](data/example.json)" and prints the report
+1. Parse events on "[data/example.json](data/example.json)" and prints the report
 ```
 bundle exec ruby main.rb
 ```
