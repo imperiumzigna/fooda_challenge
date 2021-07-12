@@ -17,5 +17,15 @@ module RewardPolicy
     def valid?(reward)
       reward >= 3 && reward <= 20
     end
+
+    def get_settings(time)
+      settings = RewardPolicy::REWARD_RULES.find { |rule| between?(time, rule[:start], rule[:end]) }
+
+      settings || RewardPolicy::DEFAULT_REWARD_RULE
+    end
+
+    def between?(time, start_time, end_time)
+      time >= start_time && time <= end_time
+    end
   end
 end

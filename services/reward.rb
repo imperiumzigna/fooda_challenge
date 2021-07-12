@@ -36,14 +36,8 @@ module Reward
     def calculate(amount, timestamp)
       time = Time.parse(timestamp).hour
 
-      settings = get_settings(time)
+      settings = RewardPolicy.get_settings(time)
       count_points(amount, settings[:per_point], settings[:prize])
-    end
-
-    def get_settings(time)
-      settings = RewardPolicy::REWARD_RULES.find { |rule| between?(time, rule[:start], rule[:end]) }
-
-      settings || RewardPolicy::DEFAULT_REWARD_RULE
     end
 
     def count_points(amount, per_point, prize)
@@ -51,10 +45,6 @@ module Reward
 
       reward = ((amount / per_point) * prize.to_f).ceil
       RewardPolicy.valid?(reward) ? reward : 0
-    end
-
-    def between?(time, start_time, end_time)
-      time >= start_time && time <= end_time
     end
   end
 end

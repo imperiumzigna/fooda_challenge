@@ -48,7 +48,7 @@ describe Event do
 
   context 'find customers or create' do
     it 'finds a customer by name' do
-      customer = Event.send(:find_or_create_customer, new_order, customers_data)
+      customer = Event.send(:find_or_create_customer, new_order['customer'], customers_data)
 
       expect(customer).to be_a(Customer)
       expect(customer.name).to eql('customer')
@@ -56,7 +56,7 @@ describe Event do
     end
 
     it 'returns a new customer' do
-      customer = Event.send(:find_or_create_customer, new_order, {})
+      customer = Event.send(:find_or_create_customer, new_order['customer'], {})
 
       expect(customer).to be_a(Customer)
       expect(customer.name).to eql('customer')
